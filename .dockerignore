@@ -1,0 +1,42 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencies
+vendor/
+
+# Build artifacts
+*.o
+*.a
+*.so
+*.out
+
+# Test coverage
+*.coverprofile
+coverage/
+
+# Environment
+.env.local
+
+# Docs
+docs/
+
+# Node (if using frontend build)
+node_modules/
+dist/
+build/
+
+# Others
+.env
+*.log

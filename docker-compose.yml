@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: hris-postgres
+    environment:
+      POSTGRES_USER: hris_user
+      POSTGRES_PASSWORD: hris_password_secure
+      POSTGRES_DB: hris_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hris_user -d hris_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hris-network
+
+  app:
+    build: .
+    container_name: hris-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: 28112002
+      DB_NAME: hris-monitoring
+      DB_SSLMODE: disable
+      JWT_SECRET: your_jwt_secret_key_here_change_in_production
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./uploads:/root/uploads
+    networks:
+      - hris-network
+
+volumes:
+  postgres_data:
+
+networks:
+  hris-network:
+    driver: bridge
