@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: hris_user
       POSTGRES_PASSWORD: hris_password_secure
-      POSTGRES_DB: hris_db
+      POSTGRES_DB: hris-monitoring
     ports:
       - "5432:5432"
     volumes:
@@ -29,8 +29,8 @@ services:
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
-      DB_USER: postgres
-      DB_PASSWORD: 28112002
+      DB_USER: hris_user
+      DB_PASSWORD: hris_password_secure
       DB_NAME: hris-monitoring
       DB_SSLMODE: disable
       JWT_SECRET: your_jwt_secret_key_here_change_in_production
